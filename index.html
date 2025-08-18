@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Muthu Siva S — Web Developer Portfolio</title>
+  <meta name="description" content="Portfolio of Muthu Siva S — Web Developer skilled in HTML, CSS, JavaScript, Tailwind CSS, Python, Node.js (proxy), and MySQL." />
+
+  <!-- Step 0: Tech used (no build step) -->
+  <!-- Tailwind via CDN for rapid setup. For production, consider a build with purge. -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ["Inter", "system-ui", "-apple-system", "Segoe UI", "Roboto", "Arial", "sans-serif"],
+          },
+          colors: {
+            brand: {
+              DEFAULT: "#4f46e5", // indigo-600
+              dark: "#3730a3",   // indigo-800
+              light: "#818cf8",  // indigo-400
+            },
+          },
+          boxShadow: {
+            soft: "0 10px 30px rgba(2, 6, 23, 0.08)",
+            glow: "0 10px 40px rgba(79, 70, 229, 0.35)",
+          },
+        },
+      },
+    };
+  </script>
+
+  <!-- Inter font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- AOS (scroll animations) -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <!-- VanillaTilt (subtle 3D tilt on cards) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js" defer></script>
+
+  <style>
+    /* Global refinements */
+    html { scroll-behavior: smooth; }
+    body { overflow-x: hidden; }
+    /* Decorative gradient background */
+    .bg-orb {
+      position: absolute; inset: -20%;
+      background: radial-gradient(60% 60% at 70% 30%, rgba(79,70,229,0.15), transparent 60%),
+                  radial-gradient(45% 45% at 20% 80%, rgba(14,165,233,0.18), transparent 60%);
+      filter: blur(60px); pointer-events: none;
+    }
+    /* Make sure anchored sections account for sticky header */
+    section { scroll-margin-top: 96px; /* ~header height */ }
+    /* Smooth shadow-on-scroll for header */
+    header.header-shadow { box-shadow: 0 8px 24px rgba(2,6,23,0.06); }
+  </style>
+</head>
+<body class="font-sans text-slate-800 bg-white">
+ <!-- ================= Header / Nav ================= -->
+<header id="site-header" class="fixed top-0 inset-x-0 z-50 bg-white/80 backdrop-blur border-b border-slate-200/60 transition-shadow">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="h-16 flex items-center justify-between">
+      <!-- Brand -->
+      <a href="#home" class="group inline-flex items-center gap-2">
+        <div class="h-9 w-9 rounded-xl bg-brand/10 border border-brand/20 grid place-items-center group-hover:shadow-glow transition-shadow">
+          <span class="text-brand font-extrabold">MS</span>
+        </div>
+        <span class="text-lg sm:text-xl font-semibold tracking-tight">Muthu Siva S</span>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-1" aria-label="Primary">
+        <a href="#home" class="nav-link px-3 py-2 rounded-xl text-sm font-medium hover:bg-slate-100">Home</a>
+        <a href="#about" class="nav-link px-3 py-2 rounded-xl text-sm font-medium hover:bg-slate-100">About</a>
+        <a href="#skills" class="nav-link px-3 py-2 rounded-xl text-sm font-medium hover:bg-slate-100">Skills</a>
+        <a href="#projects" class="nav-link px-3 py-2 rounded-xl text-sm font-medium hover:bg-slate-100">Projects</a>
+        <a href="#experience" class="nav-link px-3 py-2 rounded-xl text-sm font-medium hover:bg-slate-100">Experience</a>
+        <a href="#education" class="nav-link px-3 py-2 rounded-xl text-sm font-medium hover:bg-slate-100">Education</a>
+        <a href="#contact" class="nav-link px-3 py-2 rounded-xl text-sm font-medium hover:bg-slate-100">Contact</a>
+        <a href="assets/Muthu_Siva_Resume.pdf" class="ml-2 px-4 py-2 rounded-xl text-sm font-semibold bg-brand text-white hover:bg-brand-dark transition-colors" download>Resume</a>
+      </nav>
+
+      <!-- Mobile menu button -->
+      <button id="menu-btn" class="md:hidden inline-flex items-center justify-center h-10 w-10 rounded-xl border border-slate-300 hover:bg-slate-100" aria-label="Open menu" aria-expanded="false">
+        <svg id="menu-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 block" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg id="close-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Nav Panel -->
+  <div id="mobile-nav" class="md:hidden hidden border-t border-slate-200 bg-white">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 flex flex-col gap-2">
+      <a class="mobile-link px-3 py-3 rounded-xl text-sm font-medium hover:bg-slate-100" href="#home">Home</a>
+      <a class="mobile-link px-3 py-3 rounded-xl text-sm font-medium hover:bg-slate-100" href="#about">About</a>
+      <a class="mobile-link px-3 py-3 rounded-xl text-sm font-medium hover:bg-slate-100" href="#skills">Skills</a>
+      <a class="mobile-link px-3 py-3 rounded-xl text-sm font-medium hover:bg-slate-100" href="#projects">Projects</a>
+      <a class="mobile-link px-3 py-3 rounded-xl text-sm font-medium hover:bg-slate-100" href="#experience">Experience</a>
+      <a class="mobile-link px-3 py-3 rounded-xl text-sm font-medium hover:bg-slate-100" href="#education">Education</a>
+      <a class="mobile-link px-3 py-3 rounded-xl text-sm font-medium hover:bg-slate-100" href="#contact">Contact</a>
+      <a class="px-3 py-3 rounded-xl text-sm font-semibold bg-brand text-white hover:bg-brand-dark transition-colors" href="assets/Muthu_Siva_Resume.pdf" download>Download Resume</a>
+    </div>
+  </div>
+</header>
+
+  <!-- ======= MAIN ======= -->
+  <main id="home" class="relative">
+    <div class="bg-orb" aria-hidden="true"></div>
+
+    <!-- Hero -->
+    <section class="min-h-screen flex items-center pt-24" id="hero" aria-label="Intro">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-10 items-center">
+        <div data-aos="fade-right" class="space-y-6">
+          <span class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-brand">
+            <span class="h-1.5 w-1.5 rounded-full bg-brand inline-block"></span>
+            Web Developer & Software Developer
+          </span>
+          <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight">
+            Hi, I'm <span class="text-brand">Muthu Siva S</span> — I build clean, fast & responsive web apps.
+          </h1>
+          <p class="text-slate-600 text-lg max-w-prose">Motivated and detail‑oriented developer with a strong foundation in front‑end and back‑end technologies. I love shipping polished user experiences with performance in mind.</p>
+          <div class="flex flex-wrap gap-3">
+            <a href="#projects" class="px-5 py-3 rounded-xl bg-brand text-white font-semibold hover:bg-brand-dark transition-colors">View Projects</a>
+            <a href="#contact" class="px-5 py-3 rounded-xl border border-slate-300 font-semibold hover:bg-slate-100">Contact Me</a>
+          </div>
+          <div class="text-sm text-slate-500">📍 Poonamallee, Thiruvallur • 📧 muthusiva23092004@gmail.com • ☎️ 9360364826</div>
+        </div>
+
+        <!-- 3D Card -->
+        <div data-aos="fade-left" class="relative">
+          <div class="pointer-events-none absolute -inset-8 rounded-3xl bg-gradient-to-tr from-brand/10 to-sky-300/10 blur-2xl"></div>
+          <div class="relative" data-tilt data-tilt-max="8" data-tilt-glare data-tilt-max-glare="0.2">
+            <div class="rounded-3xl border border-slate-200 bg-white shadow-soft overflow-hidden">
+              <div class="p-6 sm:p-10">
+                <div class="flex items-center gap-3 mb-6">
+                  <div class="h-3 w-3 rounded-full bg-rose-400"></div>
+                  <div class="h-3 w-3 rounded-full bg-amber-400"></div>
+                  <div class="h-3 w-3 rounded-full bg-emerald-400"></div>
+                </div>
+                <h3 class="text-2xl font-bold mb-2">Tech Snapshot</h3>
+                <p class="text-slate-600 mb-6">HTML, CSS, JavaScript, Tailwind CSS, Python, MySQL, Node.js (Proxy), GitHub, VS Code</p>
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                  <div class="p-3 rounded-xl border border-slate-200 text-center">HTML / CSS</div>
+                  <div class="p-3 rounded-xl border border-slate-200 text-center">JavaScript</div>
+                  <div class="p-3 rounded-xl border border-slate-200 text-center">Tailwind CSS</div>
+                  <div class="p-3 rounded-xl border border-slate-200 text-center">Python</div>
+                  <div class="p-3 rounded-xl border border-slate-200 text-center">MySQL</div>
+                  <div class="p-3 rounded-xl border border-slate-200 text-center">Node.js (Proxy)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+<section id="about" class="min-h-screen py-24" aria-label="About Me">
+  <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+    <div class="grid lg:grid-cols-[1fr_2fr] gap-10 items-start">
+      <h2 data-aos="fade-up" class="text-3xl sm:text-4xl font-bold">About Me</h2>
+      <div class="space-y-5" data-aos="fade-up" data-aos-delay="100">
+        <p class="text-slate-600 text-lg">
+          I am a motivated and detail-oriented web developer with a strong foundation in both front-end and back-end technologies. I enjoy creating modern, responsive websites and working on innovative projects that make a real impact.
+        </p>
+        <p class="text-slate-600 text-lg">
+          I am the creator of <strong>Neuro Bulk</strong> — my own platform designed for creators to share, monetize, and grow their audience — and <strong>The Gym Guys</strong>, a fitness-focused platform helping users track workouts and stay motivated.
+        </p>
+        <p class="text-slate-600 text-lg">
+          During my internship at Nexus Info, I contributed to the design, development, and testing of web applications, built interactive features, and optimized website performance. I am constantly learning and improving my craft.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+    <!-- Skills -->
+    <section id="skills" class="min-h-screen py-24 bg-slate-50" aria-label="Skills">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <h2 data-aos="fade-up" class="text-3xl sm:text-4xl font-bold mb-10">Skills</h2>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Card -->
+          <div data-aos="fade-up" class="rounded-2xl border border-slate-200 bg-white p-6 shadow-soft" data-tilt data-tilt-max="6">
+            <h3 class="font-semibold mb-3">Frontend</h3>
+            <ul class="space-y-2 text-slate-600">
+              <li>HTML, CSS, JavaScript</li>
+              <li>Tailwind CSS</li>
+              <li>Responsive UI, Accessibility</li>
+            </ul>
+          </div>
+          <div data-aos="fade-up" data-aos-delay="100" class="rounded-2xl border border-slate-200 bg-white p-6 shadow-soft" data-tilt data-tilt-max="6">
+            <h3 class="font-semibold mb-3">Backend</h3>
+            <ul class="space-y-2 text-slate-600">
+              <li>Node.js (Proxy)</li>
+              <li>MySQL</li>
+              <li>Basic REST APIs</li>
+            </ul>
+          </div>
+          <div data-aos="fade-up" data-aos-delay="200" class="rounded-2xl border border-slate-200 bg-white p-6 shadow-soft" data-tilt data-tilt-max="6">
+            <h3 class="font-semibold mb-3">Programming language</h3>
+            <ul class="space-y-2 text-slate-600">
+              <li>Python(Basic Django)</li>
+            </ul>
+            <h3 class="font-semibold mb-3">Scripting language </h3>
+            <ul class="space-y-2 text-slate-600">
+              <li>Basic php</li>
+            </ul>
+          </div>
+          <div data-aos="fade-up" data-aos-delay="200" class="rounded-2xl border border-slate-200 bg-white p-6 shadow-soft" data-tilt data-tilt-max="6">
+            <h3 class="font-semibold mb-3">Tools & Others</h3>
+            <ul class="space-y-2 text-slate-600">
+              <li>GitHub</li>
+              <li>Visual Studio Code</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="min-h-screen py-24" aria-label="Projects">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div class="flex items-end justify-between gap-4 mb-10">
+          <h2 data-aos="fade-up" class="text-3xl sm:text-4xl font-bold">Projects</h2>
+          <a data-aos="fade-up" data-aos-delay="100" href="https://github.com/" class="text-brand hover:font-medium" target="_blank" rel="noreferrer">View GitHub →</a>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <!-- Project 1 -->
+<article class="group rounded-2xl border border-slate-200 bg-white overflow-hidden shadow-soft" data-aos="fade-up" data-tilt data-tilt-max="5">
+  <div class="relative aspect-[16/9] bg-gradient-to-tr from-brand/20 to-sky-200/30">
+    <div class="absolute inset-0 grid place-items-center">
+      <span class="text-brand/70 font-semibold">Software Company Website</span>
+    </div>
+  </div>
+  <div class="p-6 space-y-3">
+    <h3 class="text-xl font-semibold">Software Company Website</h3>
+    <p class="text-slate-600">A professional, fully responsive company website built with HTML, CSS, and JavaScript, focused on showcasing services and improving user engagement.</p>
+    <div class="flex gap-3 text-sm">
+      <span class="px-2.5 py-1 rounded-full bg-slate-100">HTML</span>
+      <span class="px-2.5 py-1 rounded-full bg-slate-100">CSS</span>
+      <span class="px-2.5 py-1 rounded-full bg-slate-100">JavaScript</span>
+    </div>
+    <div class="pt-2 flex flex-wrap gap-4">
+      <!-- Live Demo (not available - toast) -->
+      <button type="button" onclick="showToast('Live demo is not available, but source code is available.')"
+        class="inline-flex items-center justify-center px-4 sm:px-5 py-2 rounded-full font-medium text-sm text-center transition-all duration-200 shadow-sm bg-brand text-white hover:bg-brand-dark w-full sm:w-auto">
+        Live Demo
+      </button>
+      <!-- Source Code (available) -->
+      <a href="https://github.com/muthusiva12/project-nexus-2/tree/main/phase2" target="_blank"
+        class="inline-flex items-center justify-center px-4 sm:px-5 py-2 rounded-full font-medium text-sm text-center transition-all duration-200 shadow-sm border border-slate-300 text-slate-700 hover:bg-slate-100 w-full sm:w-auto">
+        Source Code
+      </a>
+    </div>
+  </div>
+</article>
+
+          <!-- Project 2 -->
+      <article class="group rounded-2xl border border-slate-200 bg-white overflow-hidden shadow-soft" data-aos="fade-up" data-aos-delay="100" data-tilt data-tilt-max="5">
+        <div class="relative aspect-[16/9] bg-gradient-to-tr from-brand/20 to-sky-200/30">
+          <div class="absolute inset-0 grid place-items-center">
+            <span class="text-brand/70 font-semibold">NeuroBulk — AI Fitness Creator Platform</span>
+          </div>
+        </div>
+        <div class="p-6 space-y-3">
+          <h3 class="text-xl font-semibold">NeuroBulk — AI Fitness Creator Platform</h3>
+          <p class="text-slate-600">Modern website for fitness creators offering AI-powered workout, diet, and content generation tools.</p>
+          <div class="flex flex-wrap gap-2 text-sm">
+            <span class="px-2.5 py-1 rounded-full bg-slate-100">HTML</span>
+            <span class="px-2.5 py-1 rounded-full bg-slate-100">Tailwind</span>
+            <span class="px-2.5 py-1 rounded-full bg-slate-100">Firebase</span>
+            <span class="px-2.5 py-1 rounded-full bg-slate-100">HuggingFace API</span>
+            <span class="px-2.5 py-1 rounded-full bg-slate-100">Node Proxy</span>
+          </div>
+          <div class="pt-2 flex flex-wrap gap-4">
+            <!-- Live Demo (works) -->
+            <a href="https://neurobulk.web.app" target="_blank"
+               class="inline-flex items-center justify-center px-4 sm:px-5 py-2 rounded-full font-medium text-sm text-center transition-all duration-200 shadow-sm bg-brand text-white hover:bg-brand-dark w-full sm:w-auto">
+              Live Demo
+            </a>
+            <!-- Source Code (private - toast) -->
+            <button type="button" onclick="showToast('Live demo is available, but source code is private.')"
+               class="inline-flex items-center justify-center px-4 sm:px-5 py-2 rounded-full font-medium text-sm text-center transition-all duration-200 shadow-sm border border-slate-300 text-slate-700 hover:bg-slate-100 w-full sm:w-auto">
+              Source Code
+            </button>
+          </div>
+        </div>
+      </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience & Education -->
+<section id="experience-education" class="min-h-screen py-24 bg-slate-50" aria-label="Experience & Education">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+    <h2 data-aos="fade-up" class="text-3xl sm:text-4xl font-bold mb-10">Experience & Education</h2>
+    <div class="grid gap-8 md:grid-cols-2">
+      
+      <!-- Experience Card -->
+      <div id="experience" data-aos="fade-up" class="rounded-2xl border border-slate-200 bg-white p-6 shadow-soft">
+        <div class="flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <h3 class="text-xl font-semibold">Web Developer Intern — Nexus Info</h3>
+            <p class="text-slate-500">15/05/2024 – 15/06/2024</p>
+          </div>
+          <span class="px-3 py-1 rounded-full bg-brand/10 text-brand text-sm font-semibold">Internship</span>
+        </div>
+        <ul class="mt-5 space-y-2 text-slate-600 list-disc list-inside">
+          <li>Contributed to design, development, and testing of web applications.</li>
+          <li>Developed interactive features and optimized website performance.</li>
+          <li>Hands-on experience with HTML, CSS, JavaScript, and MySQL on live projects.</li>
+        </ul>
+      </div>
+
+      <!-- Education Card -->
+      <div id="education" data-aos="fade-up" data-aos-delay="100" class="rounded-2xl border border-slate-200 bg-white p-6 shadow-soft">
+        <h3 class="text-xl font-semibold">B.Sc. Computer Science</h3>
+        <p class="text-slate-600">Alpha Arts and Science College — Passed Out: 2025</p>
+        <p class="text-slate-600">Score: 76%</p>
+        <h3 class="text-xl font-semibold">12th STD Computer Science</h3>
+        <p class="text-slate-600">Koil pillai memorial matric hr sec school — Passed Out: 2022</p>
+        <p class="text-slate-600">Score: 62%</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+    <!-- Contact -->
+    <section id="contact" class="min-h-screen py-24 bg-slate-50" aria-label="Contact">
+      <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-2 gap-10 items-start">
+          <div data-aos="fade-up">
+            <h2 class="text-3xl sm:text-4xl font-bold mb-4">Contact</h2>
+            <p class="text-slate-600 mb-6">Let's discuss your project, internship, or role. I'm open to opportunities and collaborations.</p>
+            <div class="space-y-3 text-slate-700">
+              <p>📞 <a class="hover:underline" href="tel:+919360364826">+91 93603 64826</a></p>
+              <p>📧 <a class="hover:underline" href="mailto:muthusiva23092004@gmail.com">muthusiva23092004@gmail.com</a></p>
+              <p>📍 Poonamallee, Thiruvallur, India</p>
+              <div class="pt-2 flex gap-4">
+                <a href="https://github.com/muthusiva12" target="_blank" rel="noreferrer" class="text-brand hover:font-medium">GitHub</a>
+                <a href="https://www.linkedin.com/in/muthu-siva/" target="_blank" rel="noreferrer" class="text-brand hover:font-medium">LinkedIn</a>
+                <a href="assets/Muthu_Siva_Resume.pdf" class="text-brand hover:font-medium" download>Download Resume</a>
+              </div>
+            </div>
+          </div>
+
+<!-- Contact form -->
+<form id="contactForm" class="relative rounded-2xl border border-slate-200 bg-white p-6 shadow-soft">
+  <!-- Toast inside form -->
+  <div id="toast" class="absolute top-2 left-1/2 -translate-x-1/2 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg text-sm opacity-0 pointer-events-none transition-opacity duration-300">
+    Message sent successfully!
+  </div>
+
+  <div class="grid grid-cols-1 gap-4 mt-8">
+    <!-- Name -->
+    <div>
+      <label for="name" class="block text-sm font-medium text-slate-700">Name</label>
+      <input id="name" name="name" type="text" required 
+             class="mt-1 w-full rounded-lg border border-slate-300 p-2 text-sm focus:border-brand focus:ring-brand" />
+    </div>
+    <!-- Email -->
+    <div>
+      <label for="email" class="block text-sm font-medium text-slate-700">Email</label>
+      <input id="email" name="email" type="email" required 
+             class="mt-1 w-full rounded-lg border border-slate-300 p-2 text-sm focus:border-brand focus:ring-brand" />
+    </div>
+    <!-- Message -->
+    <div>
+      <label for="message" class="block text-sm font-medium text-slate-700">Message</label>
+      <textarea id="message" name="message" rows="4" required 
+                class="mt-1 w-full rounded-lg border border-slate-300 p-2 text-sm focus:border-brand focus:ring-brand"></textarea>
+    </div>
+    <!-- Submit -->
+    <button type="submit" 
+            class="mt-2 inline-flex justify-center items-center px-4 py-2 text-sm rounded-lg bg-brand text-white font-semibold hover:bg-brand-dark transition-colors">
+      Send Message
+    </button>
+  </div>
+</form>
+        </div>
+      </div>
+    </section>
+  </main>
+     <!-- Q&A Section -->
+    <section id="qa" class="py-24 bg-white" aria-label="Interview Q&A">
+      <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+        <h2 data-aos="fade-up" class="text-3xl sm:text-4xl font-bold mb-10">Interview Q&A</h2>
+        
+        <div class="space-y-4">
+          <!-- Item -->
+          <div class="border border-slate-200 rounded-xl overflow-hidden">
+            <button class="w-full flex justify-between items-center p-5 text-left font-medium text-slate-800 hover:bg-slate-50 toggle-btn">
+              <span>Tell me about yourself</span>
+              <span class="text-brand font-bold">+</span>
+            </button>
+            <div class="hidden p-5 border-t border-slate-200 text-slate-600">
+              I am Muthu Siva S, a passionate web developer with strong skills in front-end and back-end technologies. I enjoy building responsive, user-friendly web applications and continuously improving my skills.
+            </div>
+          </div>
+
+          <!-- Item -->
+          <div class="border border-slate-200 rounded-xl overflow-hidden">
+            <button class="w-full flex justify-between items-center p-5 text-left font-medium text-slate-800 hover:bg-slate-50 toggle-btn">
+              <span>What projects have you worked on?</span>
+              <span class="text-brand font-bold">+</span>
+            </button>
+            <div class="hidden p-5 border-t border-slate-200 text-slate-600">
+              I have developed projects such as a Software Company Website, an AI-powered Fitness Creator Platform, and other interactive web applications using HTML, CSS, JavaScript, Tailwind CSS, and backend technologies.
+            </div>
+          </div>
+
+          <!-- Item -->
+          <div class="border border-slate-200 rounded-xl overflow-hidden">
+            <button class="w-full flex justify-between items-center p-5 text-left font-medium text-slate-800 hover:bg-slate-50 toggle-btn">
+              <span>What are your key skills?</span>
+              <span class="text-brand font-bold">+</span>
+            </button>
+            <div class="hidden p-5 border-t border-slate-200 text-slate-600">
+              My key skills include HTML, CSS, JavaScript, Tailwind CSS, Python, MySQL, Node.js (Proxy), and GitHub. I focus on writing clean, efficient, and maintainable code.
+            </div>
+          </div>
+
+          <!-- Item -->
+          <div class="border border-slate-200 rounded-xl overflow-hidden">
+            <button class="w-full flex justify-between items-center p-5 text-left font-medium text-slate-800 hover:bg-slate-50 toggle-btn">
+              <span>What are your future goals?</span>
+              <span class="text-brand font-bold">+</span>
+            </button>
+            <div class="hidden p-5 border-t border-slate-200 text-slate-600">
+              My goal is to grow as a full-stack developer, work on impactful projects, and contribute to innovative solutions that improve user experiences.
+            </div>
+          </div>
+          <!-- Item -->
+          <div class="border border-slate-200 rounded-xl overflow-hidden">
+            <button class="w-full flex justify-between items-center p-5 text-left font-medium text-slate-800 hover:bg-slate-50 toggle-btn">
+              <span>What challenges did you face in your projects?</span>
+              <span class="text-brand font-bold">+</span>
+            </button>
+            <div class="hidden p-5 border-t border-slate-200 text-slate-600">
+              One challenge was making my sites fully responsive across all devices.I solved it by using Tailwind’s responsive utilities and testing on multiple screen sizes.          
+         </div>
+          </div>
+
+          <!-- Item -->
+          <div class="border border-slate-200 rounded-xl overflow-hidden">
+            <button class="w-full flex justify-between items-center p-5 text-left font-medium text-slate-800 hover:bg-slate-50 toggle-btn">
+              <span>How do you handle pressure or tight deadlines?</span>
+              <span class="text-brand font-bold">+</span>
+            </button>
+            <div class="hidden p-5 border-t border-slate-200 text-slate-600">
+              I stay calm and break tasks into smaller parts.I use to-do lists and focus on delivering the most important features first.This helps me meet deadlines without compromising quality.
+            </div>
+          </div>
+
+          <!-- Item -->
+          <div class="border border-slate-200 rounded-xl overflow-hidden">
+            <button class="w-full flex justify-between items-center p-5 text-left font-medium text-slate-800 hover:bg-slate-50 toggle-btn">
+              <span>Where do you see yourself in 5 years?</span>
+              <span class="text-brand font-bold">+</span>
+            </button>
+            <div class="hidden p-5 border-t border-slate-200 text-slate-600">
+              In 5 years, I see myself as a senior developer leading projects, mentoring juniors, and contributing to impactful software solutions.
+            </div>
+          </div>
+
+          <!-- Item -->
+          <div class="border border-slate-200 rounded-xl overflow-hidden">
+            <button class="w-full flex justify-between items-center p-5 text-left font-medium text-slate-800 hover:bg-slate-50 toggle-btn">
+              <span>Why should we hire you?</span>
+              <span class="text-brand font-bold">+</span>
+            </button>
+            <div class="hidden p-5 border-t border-slate-200 text-slate-600">
+              Because I bring strong technical skills, a learning mindset, and dedication to delivering high-quality results. I’m motivated to grow with your company.            
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 text-sm text-slate-500 text-center"> 
+      <p>© <span id="year"></span> Muthu Siva S. All rights reserved.</p> 
+    </div>
+  <!-- ============== Scripts ============== -->
+   <!-- Project Toast -->
+<div id="projectToast" 
+     class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 
+            bg-slate-800 text-white px-4 py-2 rounded-lg shadow-lg text-sm 
+            opacity-0 pointer-events-none transition-opacity duration-300">
+</div>
+
+<script>
+function showToast(message) {
+  const toast = document.getElementById('projectToast');
+  toast.textContent = message;
+  toast.classList.remove('opacity-0', 'pointer-events-none');
+  setTimeout(() => {
+    toast.classList.add('opacity-0', 'pointer-events-none');
+  }, 3000);
+}
+</script>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    // Initialize AOS (scroll animations)
+    AOS.init({ duration: 700, easing: 'ease-out-quad', once: true, offset: 80 });
+
+    // Header shadow on scroll
+    const header = document.getElementById('site-header');
+    const toggleHeaderShadow = () => {
+      if (window.scrollY > 8) header.classList.add('header-shadow');
+      else header.classList.remove('header-shadow');
+    };
+    toggleHeaderShadow();
+    window.addEventListener('scroll', toggleHeaderShadow, { passive: true });
+
+    // Mobile menu toggle
+  const menuBtn = document.getElementById('menu-btn');
+  const mobileNav = document.getElementById('mobile-nav');
+  const menuIcon = document.getElementById('menu-icon');
+  const closeIcon = document.getElementById('close-icon');
+
+  function closeMenu() {
+    mobileNav.classList.add('hidden');
+    menuIcon.classList.remove('hidden');
+    closeIcon.classList.add('hidden');
+    menuBtn.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('overflow-hidden');
+  }
+
+  function openMenu() {
+    mobileNav.classList.remove('hidden');
+    menuIcon.classList.add('hidden');
+    closeIcon.classList.remove('hidden');
+    menuBtn.setAttribute('aria-expanded', 'true');
+    document.body.classList.add('overflow-hidden');
+  }
+
+  menuBtn.addEventListener('click', () => {
+    const expanded = menuBtn.getAttribute('aria-expanded') === 'true';
+    expanded ? closeMenu() : openMenu();
+  });
+
+  // Close menu when clicking a link
+  document.querySelectorAll('#mobile-nav .mobile-link').forEach(link => {
+    link.addEventListener('click', () => closeMenu());
+  });
+
+    // Smooth scroll with header offset (prevents "half shown" sections)
+    function smoothScrollTo(targetId) {
+      const el = document.querySelector(targetId);
+      if (!el) return;
+      const headerHeight = header.offsetHeight + 12; // a bit extra spacing
+      const y = el.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+
+    // Intercept nav clicks (desktop + mobile)
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const href = a.getAttribute('href');
+        if (href.length > 1) {
+          e.preventDefault();
+          history.pushState(null, '', href);
+          smoothScrollTo(href);
+        }
+      });
+    });
+
+    // Ensure deep links (e.g., page load with #contact) respect header offset
+    window.addEventListener('load', () => {
+      if (location.hash) smoothScrollTo(location.hash);
+    });
+
+    // Highlight active nav link using IntersectionObserver
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = [...document.querySelectorAll('main section')];
+    const linkById = {}; navLinks.forEach(l => linkById[l.getAttribute('href').slice(1)] = l);
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute('id');
+          navLinks.forEach(l => l.classList.remove('bg-slate-100'));
+          const active = linkById[id];
+          if (active) active.classList.add('bg-slate-100');
+        }
+      });
+    }, { rootMargin: '-30% 0px -60% 0px', threshold: 0.1 });
+    sections.forEach(s => io.observe(s));
+
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Q&A toggle
+    document.querySelectorAll('.toggle-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const content = btn.nextElementSibling;
+        const isOpen = !content.classList.contains('hidden');
+        
+        // Close all others
+        document.querySelectorAll('#qa .toggle-btn + div').forEach(div => div.classList.add('hidden'));
+        document.querySelectorAll('#qa .toggle-btn span:last-child').forEach(span => span.textContent = '+');
+        
+        if (!isOpen) {
+          content.classList.remove('hidden');
+          btn.querySelector('span:last-child').textContent = '−';
+        }
+      });
+    });
+
+  </script>
+
+  <script>
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+  e.preventDefault(); // stop default form behavior
+
+  const form = e.target;
+  const formData = new FormData(form);
+  const toast = document.getElementById('toast');
+
+  fetch("https://formsubmit.co/muthusiva23092004@gmail.com", {   // 🔥 replace with your email
+    method: "POST",
+    body: formData,
+    headers: { "Accept": "application/json" }
+  })
+  .then(response => {
+    if (response.ok) {
+      toast.textContent = "✅ Message sent successfully!";
+      toast.classList.remove("bg-red-500");
+      toast.classList.add("bg-green-500");
+      showToast(toast);
+      form.reset();
+    } else {
+      toast.textContent = "❌ Failed to send message!";
+      toast.classList.remove("bg-green-500");
+      toast.classList.add("bg-red-500");
+      showToast(toast);
+    }
+  })
+  .catch(() => {
+    toast.textContent = "⚠️ Something went wrong. Try again later.";
+    toast.classList.remove("bg-green-500");
+    toast.classList.add("bg-red-500");
+    showToast(toast);
+  });
+});
+
+function showToast(toast) {
+  toast.classList.remove("opacity-0", "pointer-events-none");
+  setTimeout(() => {
+    toast.classList.add("opacity-0", "pointer-events-none");
+  }, 3000);
+}
+</script>
+</body>
+</html>
+
+
