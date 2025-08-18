@@ -253,7 +253,7 @@
     </div>
     <div class="pt-2 flex flex-wrap gap-4">
       <!-- Live Demo (not available - toast) -->
-      <button type="button" onclick="showToast('Live demo is not available, but source code is available.')"
+      <button type="button" onclick="showProjectToast('Live demo is not available, but source code is available.')"
         class="inline-flex items-center justify-center px-4 sm:px-5 py-2 rounded-full font-medium text-sm text-center transition-all duration-200 shadow-sm bg-brand text-white hover:bg-brand-dark w-full sm:w-auto">
         Live Demo
       </button>
@@ -290,7 +290,7 @@
               Live Demo
             </a>
             <!-- Source Code (private - toast) -->
-            <button type="button" onclick="showToast('Live demo is available, but source code is private.')"
+            <button type="button" onclick="showProjectToast('Live demo is available, but source code is private.')"
                class="inline-flex items-center justify-center px-4 sm:px-5 py-2 rounded-full font-medium text-sm text-center transition-all duration-200 shadow-sm border border-slate-300 text-slate-700 hover:bg-slate-100 w-full sm:w-auto">
               Source Code
             </button>
@@ -500,7 +500,8 @@
 </div>
 
 <script>
-function showToast(message) {
+// Project toast
+function showProjectToast(message) {
   const toast = document.getElementById('projectToast');
   toast.textContent = message;
   toast.classList.remove('opacity-0', 'pointer-events-none');
